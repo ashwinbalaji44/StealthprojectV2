@@ -20,4 +20,11 @@ public interface TimeSheet_Repo extends JpaRepository<TimeSheet, Integer>
 	            @Param("employeeId") Integer employeeId, 
 	            @Param("startDate") LocalDate startDate, 
 	            @Param("endDate") LocalDate endDate);
+	 
+	 @Query("SELECT SUM(total_hours_worked) FROM TimeSheet t WHERE t.emp_t.emp_id = :employeeId AND t.date BETWEEN :startDate AND :endDate")
+	    int findByHourSum(
+	            @Param("employeeId") Integer employeeId, 
+	            @Param("startDate") LocalDate startDate, 
+	            @Param("endDate") LocalDate endDate);
+	 
 }

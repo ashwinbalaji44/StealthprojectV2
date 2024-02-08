@@ -45,9 +45,14 @@ public class Salary_Service {
 		return trs.findByEmployeeIdAndDateBetween(emp_id,firstDayOfMonth,lastDayOfMonth);
 	}
 	
+	public int findMonthlyHoursWorked(int emp_id) {
+		return trs.findByHourSum(emp_id,firstDayOfMonth,lastDayOfMonth);
+	}
+	
+	
 	public String creditSalary(Employee e) {
 		PayChart pc=prs.getPaySlabforEmployee(e.getLevel(), e.getDesignation());
-		double basicpay=pc.getHourlypay()*9*findNoOfDays(e.getEmp_id());
+		double basicpay=pc.getHourlypay()*findMonthlyHoursWorked(e.getEmp_id())*findNoOfDays(e.getEmp_id());
 		double da=basicpay*0.5;
 		double hra=basicpay*0.5;
 		double grosssalary=basicpay+da+hra;
@@ -57,6 +62,7 @@ public class Salary_Service {
 		double netpay=(2*basicpay)-deduction;
 		
 		Salary ss= new Salary();
+		ss.setSalary_id(ss.getEmp_s().getEmp_id()*10);
 		ss.setBasicpay(basicpay);
 		ss.setDa(da);
 		ss.setHra(hra);

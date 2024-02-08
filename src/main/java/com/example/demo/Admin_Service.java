@@ -11,6 +11,21 @@ public class Admin_Service
 	@Autowired
 	Admin_Repo ar;
 	
+	@Autowired
+	PayChart_Repo pr;
+	
+	public String addPayChart(PayChart p) {
+		Optional<PayChart> result = pr.findById(p.getPchart_id());
+		if(result.isPresent()) {
+					return "Paychart already Exist";
+		}
+		else
+		{
+			pr.save(p);
+			return "Paychart added successfully";
+		}
+	}
+	
 	public String register_admin(Admin a)
 	{
 		Optional<Admin> result = ar.findById(a.getEmail_id());

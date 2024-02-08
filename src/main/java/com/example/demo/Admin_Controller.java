@@ -54,11 +54,15 @@ public class Admin_Controller
 		return ls.denyleave(lid);
 	}
 	
-	@GetMapping(value = "noofdays/{eid}" , consumes = MediaType.APPLICATION_JSON_VALUE)
-	public int NoOfDays(@PathVariable("eid") int eid) {
-		return ss.findNoOfDays(eid);
-	}
+//	@GetMapping(value = "noofdays/{eid}" , consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public int NoOfDays(@PathVariable("eid") int eid) {
+//		return ss.findNoOfDays(eid);
+//	}
 	
+	@PostMapping(value = "paychart" , consumes = MediaType.APPLICATION_JSON_VALUE)
+	public String AddPayChart(@RequestBody PayChart pc) {
+		return as.addPayChart(pc);
+	}
 	
 	
 	//admin can search for employee using query
