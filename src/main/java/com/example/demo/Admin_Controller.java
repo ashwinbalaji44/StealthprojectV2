@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,6 +27,10 @@ public class Admin_Controller
 	Leave_Service ls;
 	@Autowired
 	Salary_Service ss;
+	@Autowired
+	TimeSheet_Service ts;
+	@Autowired
+	PayChart_Service ps;
 	
 	//admin can register
 	@PostMapping(value = "SignUp" , consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -64,7 +69,26 @@ public class Admin_Controller
 		return as.addPayChart(pc);
 	}
 	
+	@GetMapping(value = "viewdetails/{email_id}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public Optional<Employee> viewdetails(@PathVariable("email_id") String email_id)
+	{
+		return es.viewemployeedetail(email_id);
+	}
 	
+	@GetMapping(value="viewattendance/{emp_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<TimeSheet> viewAttendance(@PathVariable("emp_id") int emp_id) {
+	    return ts.viewattendance(emp_id);
+	}
+	
+	@GetMapping(value = "viewpaychart",produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<PayChart> viewpaychartdetails()
+	{
+		return ps.viewallpaychart();
+	}
+	@PutMapping("/updatepaychart/{pid}/{basicpay}")
+	public String denylemployeeleave(@PathVariable("lid") int pid,@PathVariable("basicpay") double basicpay) {
+		return ps.updatebasicpay(pid,basicpay);
+	}
 	//admin can search for employee using query
 //	 @GetMapping("/search/{condition}")
 //	    public ResponseEntity<ResponseEntity<List<Employee>>> searchEmployees(@PathVariable("condition") String condition,@RequestParam("query") String query){

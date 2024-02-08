@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TimeSheet_Repo extends JpaRepository<TimeSheet, Integer> 
 {
+	@Query("SELECT COUNT(date) from TimeSheet p WHERE p.emp_t.emp_id= :emp_id and p.date= :today")
+	public int dateChecker(@Param("emp_id") int emp_id, @Param("today") LocalDate today);
+	
 	@Query("SELECT p FROM TimeSheet p  WHERE p.emp_t.emp_id = :emp_id")
 	public  List<TimeSheet> viewAttendance(@Param("emp_id") int emp_id);
 	

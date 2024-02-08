@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -100,8 +102,22 @@ public class Employee_Service
 		int worked_hours=(t.getCheck_out()-t.getCheck_in());
 		t.setTotal_hours_worked(worked_hours);
 		t.setOvertime_hours(overtime_calc);
-		tr.save(t);
-		return "attendance marked succesfully";
+		LocalDate currentDate = LocalDate.now();
+//		LocalDate currentDate = LocalDate.of(2024, 2, 9);
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        String formattedDate = currentDate.format(formatter);
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//		String dateString = currentDate.toString();
+//        LocalDate date = LocalDate.parse(dateString, formatter);
+		int count=tr.dateChecker(t.getEmp_t().getEmp_id(),currentDate);
+		System.out.println(count);
+		if(count==0) {
+			tr.save(t);
+			return "attendance marked succesfully";
+		}else
+		{
+			return "CRO activities detected";
+		}
 	}
 //	public List<TimeSheet> viewattendance(int emp_id)
 //	{
