@@ -45,6 +45,10 @@ public class TimeSheet
 		this.emp_t = emp_t;
 	}
 	
+	public int getEmpId() {
+	    return emp_t != null ? emp_t.getEmp_id() : null;
+	}
+	
 	public int getTimesheet_id() {
 		return timesheet_id;
 	}

@@ -22,6 +22,7 @@ public class Employee
 {
 	@Id
 	private int emp_id;
+	private String profile_pic;
 	private String f_name;
 	private String l_name;
 	private String dob;
@@ -32,6 +33,10 @@ public class Employee
 	private String state;
 	private int pincode;
 	private double mobile_number;
+	private String pan_number;
+	private String father_name;
+	private double bank_accnumber;
+
 	@Column(name = "email_id", unique = true)
 	private String email_id;
 	private String password;
@@ -178,6 +183,30 @@ public class Employee
 	public void setLevel(String level) {
 		this.level = level;
 		
+	}
+	public String getProfile_pic() {
+		return profile_pic;
+	}
+	public void setProfile_pic(String profile_pic) {
+		this.profile_pic = profile_pic;
+	}
+	public String getPan_number() {
+		return pan_number;
+	}
+	public void setPan_number(String pan_number) {
+		this.pan_number = pan_number;
+	}
+	public String getFather_name() {
+		return father_name;
+	}
+	public void setFather_name(String father_name) {
+		this.father_name = father_name;
+	}
+	public double getBank_accnumber() {
+		return bank_accnumber;
+	}
+	public void setBank_accnumber(double bank_accnumber) {
+		this.bank_accnumber = bank_accnumber;
 	}
 
 	

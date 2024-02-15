@@ -40,6 +40,25 @@ public class Salary_Service {
      
      // Get the last day of the month
      LocalDate lastDayOfMonth = yearMonth.atEndOfMonth();
+     
+	public double getmonthlypf() {
+	     return srs.getsumofpf(firstDayOfMonth, lastDayOfMonth);
+	}
+	
+	public double getmonthlytax() {
+	     return srs.getsumoftax(firstDayOfMonth, lastDayOfMonth);
+	}
+    
+	 public int[] getMonthlyCtcForYear(int year) {
+	        int[] monthlyCtc = new int[12];
+	        List<Object[]> results = srs.findCtcSumByMonthForYear(year);
+	        for (Object[] result : results) {
+	            int month = (Integer) result[0]; // Assuming months are 1-based
+	            int totalCtc = ((Number) result[1]).intValue();
+	            monthlyCtc[month - 1] = totalCtc; // Adjust to 0-based index
+	        }
+	        return monthlyCtc;
+	    }
 	
 	public int findNoOfDays(int emp_id) {
 		return trs.findByEmployeeIdAndDateBetween(emp_id,firstDayOfMonth,lastDayOfMonth);
@@ -62,7 +81,6 @@ public class Salary_Service {
 		double netpay=(2*basicpay)-deduction;
 		
 		Salary ss= new Salary();
-		ss.setSalary_id(ss.getEmp_s().getEmp_id()*10);
 		ss.setBasicpay(basicpay);
 		ss.setDa(da);
 		ss.setHra(hra);
@@ -87,6 +105,7 @@ public class Salary_Service {
         for (Employee employee : el) {
             // Logic to calculate and credit salary for each employee
             // This could include calling an external payment API
+        	//lastDayOfMonth
         	if(currentDate.isEqual(lastDayOfMonth)) {
     			creditSalary(employee);
         	}

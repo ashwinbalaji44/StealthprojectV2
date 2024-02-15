@@ -17,4 +17,7 @@ public class TimeSheet_Service
 		
 		return tr.viewAttendance(emp_id);
 	}
+	public List<TimeSheet> viewTimeSheet(){
+		return tr.findAll();
+	}
 }

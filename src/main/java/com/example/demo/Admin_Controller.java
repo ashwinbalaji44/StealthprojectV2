@@ -21,17 +21,21 @@ public class Admin_Controller
 {
 	@Autowired
 	Admin_Service as;
+	
 	@Autowired
 	Employee_Service es;
+	
 	@Autowired
 	Leave_Service ls;
+	
 	@Autowired
 	Salary_Service ss;
+	
 	@Autowired
 	TimeSheet_Service ts;
+	
 	@Autowired
 	PayChart_Service ps;
-	
 	//admin can register
 	@PostMapping(value = "SignUp" , consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String Register_Admin(@RequestBody Admin admin) {
@@ -80,6 +84,11 @@ public class Admin_Controller
 	    return ts.viewattendance(emp_id);
 	}
 	
+	@GetMapping(value="viewtimesheet", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<TimeSheet> viewTimesheet(){
+		return ts.viewTimeSheet();
+	}
+	
 	@GetMapping(value = "viewpaychart",produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<PayChart> viewpaychartdetails()
 	{
@@ -89,6 +98,28 @@ public class Admin_Controller
 	public String denylemployeeleave(@PathVariable("lid") int pid,@PathVariable("basicpay") double basicpay) {
 		return ps.updatebasicpay(pid,basicpay);
 	}
+	@GetMapping(value = "viewcountofemployees",produces = MediaType.APPLICATION_JSON_VALUE)
+	public int viewcountemp()
+	{
+		return es.viewcountofemployee();
+	}
+	
+	@GetMapping(value="getmonthlypf", produces = MediaType.APPLICATION_JSON_VALUE)
+	public double getMonthlyPF() {
+	    return ss.getmonthlypf();
+	}
+	
+	@GetMapping(value="getmonthlytax", produces = MediaType.APPLICATION_JSON_VALUE)
+	public double getMonthlyTax() {
+	    return ss.getmonthlytax();
+	}
+	
+    @GetMapping(value="/monthlyCtc/{year}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public int[] getMonthlyCtcForYear(@PathVariable int year) {
+        return ss.getMonthlyCtcForYear(year);
+    }	
+    
+	
 	//admin can search for employee using query
 //	 @GetMapping("/search/{condition}")
 //	    public ResponseEntity<ResponseEntity<List<Employee>>> searchEmployees(@PathVariable("condition") String condition,@RequestParam("query") String query){

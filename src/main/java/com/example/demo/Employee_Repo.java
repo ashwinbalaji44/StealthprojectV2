@@ -16,6 +16,8 @@ public interface Employee_Repo extends JpaRepository<Employee, Integer>
 	@Query("select e.cl from Employee e where e.emp_id = :empid")
 	public int count_of_cl(@Param("empid") int empid);
 	
+	@Query("select COUNT(e.emp_id) from Employee e")
+	public int countofemployee();
 	
 	@Query("select e.el from Employee e where e.emp_id = :empid")
 	public int count_of_el(@Param("empid") int empid);

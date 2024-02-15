@@ -50,7 +50,7 @@ public class Employee_Service
 	
 	public String login_employee(Employee e)
 	{
-		Optional<Employee> result = er.findById(e.getEmp_id());
+		Optional<Employee> result = er.findByEmail(e.getEmail_id());
 		if(result.isPresent()) {
 			Employee e1 = result.get();
 			if(e1.getPassword().equals(e.getPassword()))
@@ -118,6 +118,10 @@ public class Employee_Service
 		{
 			return "CRO activities detected";
 		}
+	}
+	
+	public int viewcountofemployee(){
+		return er.countofemployee();
 	}
 //	public List<TimeSheet> viewattendance(int emp_id)
 //	{
